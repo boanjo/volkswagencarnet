@@ -537,9 +537,11 @@ class Connection:
             # Get all Vehicle objects and update in parallell
             updatelist = []
             for vehicle in self.vehicles:
-                updatelist.append(vehicle.update())
+                #updatelist.append(vehicle.update())
+                # @todo temp fix since get homeregion gets mixed when running async mode
+                await vehicle.update()
             # Wait for all data updates to complete
-            await asyncio.gather(*updatelist)
+            #await asyncio.gather(*updatelist)
 
             return True
         except (IOError, OSError, LookupError, Exception) as error:
